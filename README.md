@@ -13,7 +13,7 @@ This allows allowing interaction with the same minikube cluster, using kubectl, 
 ###Required
 1. Minikube configured and running
 1. Windows (Tested on Windows 8.1)
-1. Virtualbox (optional: VirtualBox Extension Pack)
+1. VirtualBox (optional: VirtualBox Extension Pack)
 1. Vagrant
 1. Vagrant plugins
 
@@ -33,10 +33,9 @@ for file sharing between the guests and host to work.
 1. Cygwin
 
 #Usage
-When is started run 
-`vagrant up` and then `vagrant ssh`
+When minikube is running, run `vagrant up` and then `vagrant ssh`
 
-If minikube changes ip-adress run `vagrant provision` and then `vagrant ssh`
+If minikube changes ip-address run `vagrant provision` and then `vagrant ssh`
 
 
 
