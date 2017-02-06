@@ -12,12 +12,13 @@ Vagrant.configure("2") do |config|
 
   # Every Vagrant development environment requires a box. You can search for
   # boxes at https://atlas.hashicorp.com/search.
-  config.vm.box = "base"
+  #config.vm.box = "base"
+  config.vm.box = "centos/7"
 
   # Disable automatic box update checking. If you disable this, then
   # boxes will only be checked for updates when the user runs
   # `vagrant box outdated`. This is not recommended.
-  # config.vm.box_check_update = false
+  config.vm.box_check_update = true
 
   # Create a forwarded port mapping which allows access to a specific port
   # within the machine from a port on the host machine. In the example below,
@@ -38,6 +39,7 @@ Vagrant.configure("2") do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
+  config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -61,6 +63,10 @@ Vagrant.configure("2") do |config|
   #   push.app = "YOUR_ATLAS_USERNAME/YOUR_APPLICATION_NAME"
   # end
 
+  #config.trigger.before [:up, :provision] do
+  #  minikube start
+  #end
+
   # Enable provisioning with a shell script. Additional provisioners such as
   # Puppet, Chef, Ansible, Salt, and Docker are also available. Please see the
   # documentation for more information about their specific syntax and use.
@@ -68,4 +74,29 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
+  config.vm.provision "file", source: ENV['USERPROFILE']+"/.kube/config", destination: "/home/vagrant/.kube/config"
+  config.vm.provision "file", source: ENV['USERPROFILE']+"/.minikube/ca.crt", destination: "/home/vagrant/.minikube/ca.crt"
+  config.vm.provision "file", source: ENV['USERPROFILE']+"/.minikube/apiserver.crt", destination: "/home/vagrant/.minikube/apiserver.crt"
+  config.vm.provision "file", source: ENV['USERPROFILE']+"/.minikube/apiserver.key", destination: "/home/vagrant/.minikube/apiserver.key"
+
+  config.vm.provision "shell", privileged: false, inline: <<-SHELL
+echo downloading kubectl
+# curl fails when running behind corporate proxy servers, so curl is replaced with wget here
+# curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+sudo yum -y install wget
+wget -c -T 3 https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl -O kubectl
+chmod +x ./kubectl
+echo "move kubectl to /usr/local/bin/kubectl"
+sudo mv ./kubectl /usr/local/bin/kubectl
+echo "installing nano"
+sudo yum -y install nano
+/usr/local/bin/kubectl config set-cluster minikube --certificate-authority=.minikube/ca.crt
+echo "configure kubectl"
+/usr/local/bin/kubectl config set-credentials minikube --certificate-authority=.minikube/ca.crt --client-key=.minikube/apiserver.key --client-certificate=.minikube/apiserver.crt
+echo "source <(kubectl completion bash)" >> ~/.bashrc
+  SHELL
+
+
+
+
 end

@@ -3,8 +3,8 @@
 Project that allows users on Windows, running minikube, to
 interact with minikube using kubectl running on Linux.
 
-This project spawns a Virtualbox guest Linux OS using Vagrant, copies the necessary files from userprofile folders
-.kube and .minikube folders into the similar location on the Guest OS.
+This project spawns a Virtualbox guest Linux OS using Vagrant, copies the necessary kubectl and minikube files from the
+Host OS userprofile folder, into the similar location on the Guest OS.
 
 This allows allowing interaction with the same minikube cluster using kubectl from both Windows and a Linux.
 
@@ -13,7 +13,7 @@ This allows allowing interaction with the same minikube cluster using kubectl fr
 ###Required
 1. Minikube configured and running
 1. Windows (Tested on Windows 8.1)
-1. Virtualbox (+VM VirtualBox Extension Pack)
+1. Virtualbox (optional: VirtualBox Extension Pack)
 1. Vagrant
 1. Vagrant plugins
 
