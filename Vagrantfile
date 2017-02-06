@@ -80,21 +80,34 @@ Vagrant.configure("2") do |config|
   config.vm.provision "file", source: ENV['USERPROFILE']+"/.minikube/apiserver.key", destination: "/home/vagrant/.minikube/apiserver.key"
 
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
-echo downloading kubectl
-# curl fails when running behind corporate proxy servers, so curl is replaced with wget here
-# curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
-sudo yum -y install wget
-wget -c -T 3 https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl -O kubectl
-chmod +x ./kubectl
-echo "move kubectl to /usr/local/bin/kubectl"
-sudo mv ./kubectl /usr/local/bin/kubectl
-echo "installing nano"
-sudo yum -y install nano
-/usr/local/bin/kubectl config set-cluster minikube --certificate-authority=.minikube/ca.crt
+if [ ! -f /usr/local/bin/kubectl ]; then
+    echo downloading kubectl
+    # curl fails when running behind corporate proxy servers, so curl is replaced with wget here
+    # curl -LO https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl
+    sudo yum -y install wget
+    wget -c -T 3 https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl -O kubectl
+    chmod +x ./kubectl
+    echo "move kubectl to /usr/local/bin/kubectl"
+    sudo mv ./kubectl /usr/local/bin/kubectl
+fi
+
+if [ ! -x "$(which nano)" ]; then
+  echo "installing nano"
+  sudo yum -y install nano
+fi
+
 echo "configure kubectl"
+/usr/local/bin/kubectl config set-cluster minikube --certificate-authority=.minikube/ca.crt
 /usr/local/bin/kubectl config set-credentials minikube --certificate-authority=.minikube/ca.crt --client-key=.minikube/apiserver.key --client-certificate=.minikube/apiserver.crt
-echo "source <(kubectl completion bash)" >> ~/.bashrc
-  SHELL
+
+if ! grep -q -i 'kubectl' ~/.bashrc; then
+  echo "adding kubectl bash completion to the profile of: $USER"
+  echo "source <(kubectl completion bash)" >> ~/.bashrc
+fi
+
+echo "Now run 'vagrant ssh' and start some kubectl'ing"
+
+SHELL
 
 
 

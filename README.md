@@ -32,6 +32,14 @@ for file sharing between the guests and host to work.
 ###Optional
 1. Cygwin
 
+#Usage
+When is started run 
+`vagrant up` and then `vagrant ssh`
+
+If minikube changes ip-adress run `vagrant provision` and then `vagrant ssh`
+
+
+
 
 
 
