@@ -13,7 +13,7 @@ This allows allowing interaction with the same minikube cluster, using kubectl, 
 ###Required
 1. Minikube configured and running
 ```cmd 
-C:\projects\minikube-client>minikube status
+C:\>minikube status
 minikubeVM: Running
 localkube: Running
 ```
