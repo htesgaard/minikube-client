@@ -37,6 +37,22 @@ When minikube is running, run `vagrant up` and then `vagrant ssh`
 
 If minikube changes ip-address run `vagrant provision` and then `vagrant ssh`
 
+## Examples
+
+Congratulations! You're now ready to use your Kubernetes cluster from a kubectl running on a virtualized Linux.
+
+It's now time to get your hands dirty by trying som of the  
+[Kubernetes tutorials] (https://kubernetes.io/docs/tutorials/) here 
+and  [Kubernetes tasks] ()https://kubernetes.io/docs/tasks/)
+
+If you just want to test something simple, start with [Kubernetes examples]
+(https://github.com/GoogleCloudPlatform/kubernetes/blob/master/examples/).
+
+For a more elaborate scenario [here]
+(https://github.com/pires/kubernetes-elasticsearch-cluster) you'll find all
+you need to get a scalable Elasticsearch cluster on top of Kubernetes in no
+time.
+
 
 
 
