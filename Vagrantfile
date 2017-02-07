@@ -96,6 +96,11 @@ if [ ! -x "$(which nano)" ]; then
   sudo yum -y install nano
 fi
 
+if [ ! -x "$(which git)" ]; then
+  echo "installing git"
+  sudo yum -y install git
+fi
+
 echo "configure kubectl"
 /usr/local/bin/kubectl config set-cluster minikube --certificate-authority=.minikube/ca.crt
 /usr/local/bin/kubectl config set-credentials minikube --certificate-authority=.minikube/ca.crt --client-key=.minikube/apiserver.key --client-certificate=.minikube/apiserver.crt
