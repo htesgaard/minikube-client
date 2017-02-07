@@ -1,7 +1,7 @@
 # minikube-client
 
-Project that allows users on Windows, running minikube, to
-interact with minikube using kubectl running on Linux.
+This project  allows users on Windows, running minikube, to
+interact with minikube using kubectl running on virtualized Linux.
 
 This project spawns a Virtualbox guest Linux OS using Vagrant, copies the necessary kubectl and minikube files from the
 Host OS userprofile folder, into the similar location on the Guest OS.
