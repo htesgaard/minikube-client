@@ -10,7 +10,7 @@ This allows allowing interaction with the same minikube cluster, using kubectl, 
 
 ##Prerequisites
 
-###Required
+###Required prerequisites
 1. Minikube configured and running
 ```cmd 
 C:\>minikube status
@@ -32,7 +32,7 @@ Install missing plugins using the command `vagrant plugin install <name>`
 > The plugin `vagrant-vbguest` automatically installs the virtualbox guest additions, on `vagrant up`, that's necessary
 for file sharing between the guests and host to work.
 
-###Optional
+###Optional prerequisites
 1. Cygwin
 
 #Usage
