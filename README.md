@@ -42,7 +42,7 @@ If kubectl can't find the cluster it is much likely because your ip-address has 
 
 ## Examples
 
-Congratulations! You're now ready to use your Kubernetes cluster from a kubectl running on a virtualized Linux.
+Congratulations! You're now ready to use your Kubernetes cluster, from a kubectl cmd running on a virtualized Linux.
 
 It's now time to get your hands dirty by trying som of the  
 [Kubernetes tutorials] (https://kubernetes.io/docs/tutorials/) here 
