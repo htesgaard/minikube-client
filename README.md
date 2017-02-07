@@ -12,12 +12,15 @@ This allows allowing interaction with the same minikube cluster, using kubectl, 
 
 ###Required
 1. Minikube configured and running
-1. Windows (Tested on Windows 8.1)
-1. VirtualBox (optional: VirtualBox Extension Pack)
-1. Vagrant
-1. Vagrant plugins
-
-
+```cmd 
+C:\projects\minikube-client>minikube status
+minikubeVM: Running
+localkube: Running
+```
+2. Windows (Tested on Windows 8.1)
+3. VirtualBox (optional: VirtualBox Extension Pack)
+4. Vagrant
+5. Vagrant plugins installed
 ```cmd
 C:\>vagrant plugin list
 vagrant-share (1.1.6, system)
