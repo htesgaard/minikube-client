@@ -11,16 +11,15 @@ This allows allowing interaction with the same minikube cluster, using kubectl, 
 ##Prerequisites
 
 ###Required prerequisites
-1. Minikube configured and running
+1. [Minikube](https://github.com/kubernetes/minikube) configured and running
 ```cmd 
 C:\>minikube status
 minikubeVM: Running
 localkube: Running
 ```
-2. Some OS running Vagrant (Tested on Windows 8.1 and macOS Sierra)
-3. VirtualBox (optional: VirtualBox Extension Pack)
-4. Vagrant
-5. Vagrant plugins installed
+2. Some OS running [Vagrant](https://www.vagrantup.com/) (Tested on Windows 8.1 and macOS Sierra)
+3. [VirtualBox](https://www.virtualbox.org/) (optional: VirtualBox Extension Pack)
+4. the following Vagrant plugins installed
 ```cmd
 C:\>vagrant plugin list
 vagrant-share (1.1.6, system)
