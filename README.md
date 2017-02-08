@@ -17,7 +17,7 @@ C:\>minikube status
 minikubeVM: Running
 localkube: Running
 ```
-2. Windows (Tested on Windows 8.1)
+2. Some OS running Vagrant (Tested on Windows 8.1 ans MacOs Sierra)
 3. VirtualBox (optional: VirtualBox Extension Pack)
 4. Vagrant
 5. Vagrant plugins installed
