@@ -19,6 +19,10 @@ module OS
   end
 end
 
+unless Vagrant.has_plugin?("vagrant-vbguest")
+  raise 'required plugin vagrant-vbguest is missing! Install using the command: vagrant plugin install vagrant-vbguest'
+end
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
