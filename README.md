@@ -32,7 +32,7 @@ Install missing plugins using the command `vagrant plugin install <name>`
 for file sharing between the guests and host to work.
 
 ###Optional prerequisites
-1. Cygwin
+1. [Cygwin](https://www.cygwin.com/) - if you are on windows
 
 #Usage
 When minikube is running, at the current directory being at the same location as `Vagrantfile`, run `vagrant up` and then `vagrant ssh`
