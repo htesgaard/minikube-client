@@ -107,7 +107,7 @@ Vagrant.configure("2") do |config|
 
 
   if (defined?(OS.windows)).nil?
-    user_home_environment_variable = user_home_environment_variable
+    user_home_environment_variable = 'USERPROFILE'
   end
 
   config.vm.provision "file", source: ENV[user_home_environment_variable]+"/.kube/config", destination: "/home/vagrant/.kube/config"
