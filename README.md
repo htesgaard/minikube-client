@@ -6,21 +6,20 @@ interact with minikube using kubectl running on virtualized Linux.
 This project spawns a Virtualbox guest Linux OS using Vagrant, copies the necessary kubectl and minikube files from the
 Host OS userprofile folder, into the similar location on the Guest OS.
 
-This allows allowing interaction with the same minikube cluster, using kubectl, from both Windows and a Linux.
+This allows allowing interaction with the same minikube cluster, using kubectl, both from the Windows host OS and a virtualized Linux.
 
 ##Prerequisites
 
 ###Required prerequisites
-1. Minikube configured and running
+1. [Minikube](https://github.com/kubernetes/minikube) configured and running
 ```cmd 
 C:\>minikube status
 minikubeVM: Running
 localkube: Running
 ```
-2. Windows (Tested on Windows 8.1)
-3. VirtualBox (optional: VirtualBox Extension Pack)
-4. Vagrant
-5. Vagrant plugins installed
+2. Some OS running [Vagrant](https://www.vagrantup.com/) (Tested on Windows 8.1 and macOS Sierra)
+3. [VirtualBox](https://www.virtualbox.org/) (optional: VirtualBox Extension Pack)
+4. The following Vagrant plugins installed
 ```cmd
 C:\>vagrant plugin list
 vagrant-share (1.1.6, system)
@@ -33,7 +32,7 @@ Install missing plugins using the command `vagrant plugin install <name>`
 for file sharing between the guests and host to work.
 
 ###Optional prerequisites
-1. Cygwin
+1. [Cygwin](https://www.cygwin.com/) - if you are on windows
 
 #Usage
 When minikube is running, at the current directory being at the same location as `Vagrantfile`, run `vagrant up` and then `vagrant ssh`
@@ -56,6 +55,17 @@ For a more elaborate scenario [here]
 (https://github.com/pires/kubernetes-elasticsearch-cluster) you'll find all
 you need to get a scalable Elasticsearch cluster on top of Kubernetes in no
 time.
+
+#TODO
+You may see the following error after running `vagrant ssh`:
+
+```-bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory```
+                      
+It can be fixed by executing the command:
+
+```echo 'LC_CTYPE="en_US.UTF-8"' | sudo tee -a /etc/environment ```
+
+`exit` and reenter using `vagrant ssh`
 
 
 

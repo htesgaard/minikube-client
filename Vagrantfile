@@ -1,6 +1,28 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
+module OS
+  def OS.windows?
+    (/cygwin|mswin|mingw|bccwin|wince|emx/ =~ RUBY_PLATFORM) != nil
+  end
+
+  def OS.mac?
+    (/darwin/ =~ RUBY_PLATFORM) != nil
+  end
+
+  def OS.unix?
+    !OS.windows?
+  end
+
+  def OS.linux?
+    OS.unix? and not OS.mac?
+  end
+end
+
+unless Vagrant.has_plugin?("vagrant-vbguest")
+  raise 'required plugin vagrant-vbguest is missing! Install using the command: vagrant plugin install vagrant-vbguest'
+end
+
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
 # configures the configuration version (we support older styles for
 # backwards compatibility). Please don't change it unless you know what
@@ -39,7 +61,12 @@ Vagrant.configure("2") do |config|
   # the path on the guest to mount the folder. And the optional third
   # argument is a set of non-required options.
   # config.vm.synced_folder "../data", "/vagrant_data"
-  config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
+  #config.vm.synced_folder ".", "/vagrant", type: "virtualbox"
+  if (defined?(OS.windows)).nil?
+    config.vm.synced_folder ".", "/vagrant", type: "virtualbox",  :mount_options => [ "dmode=775", "fmode=774" ]
+  else
+    config.vm.synced_folder ".", "/vagrant", type: "virtualbox",  :mount_options => [ "dmode=775", "fmode=774" ], :nfs => true
+  end
 
   # Provider-specific configuration so you can fine-tune various
   # backing providers for Vagrant. These expose provider-specific options.
@@ -74,10 +101,19 @@ Vagrant.configure("2") do |config|
   #   apt-get update
   #   apt-get install -y apache2
   # SHELL
-  config.vm.provision "file", source: ENV['USERPROFILE']+"/.kube/config", destination: "/home/vagrant/.kube/config"
-  config.vm.provision "file", source: ENV['USERPROFILE']+"/.minikube/ca.crt", destination: "/home/vagrant/.minikube/ca.crt"
-  config.vm.provision "file", source: ENV['USERPROFILE']+"/.minikube/apiserver.crt", destination: "/home/vagrant/.minikube/apiserver.crt"
-  config.vm.provision "file", source: ENV['USERPROFILE']+"/.minikube/apiserver.key", destination: "/home/vagrant/.minikube/apiserver.key"
+
+
+  user_home_environment_variable = 'HOME'
+
+
+  if (defined?(OS.windows)).nil?
+    user_home_environment_variable = 'USERPROFILE'
+  end
+
+  config.vm.provision "file", source: ENV[user_home_environment_variable]+"/.kube/config", destination: "/home/vagrant/.kube/config"
+  config.vm.provision "file", source: ENV[user_home_environment_variable]+"/.minikube/ca.crt", destination: "/home/vagrant/.minikube/ca.crt"
+  config.vm.provision "file", source: ENV[user_home_environment_variable]+"/.minikube/apiserver.crt", destination: "/home/vagrant/.minikube/apiserver.crt"
+  config.vm.provision "file", source: ENV[user_home_environment_variable]+"/.minikube/apiserver.key", destination: "/home/vagrant/.minikube/apiserver.key"
 
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
 if [ ! -f /usr/local/bin/kubectl ]; then
