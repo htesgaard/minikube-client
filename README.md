@@ -56,6 +56,17 @@ For a more elaborate scenario [here]
 you need to get a scalable Elasticsearch cluster on top of Kubernetes in no
 time.
 
+#TODO
+You may see the following error after running `vagrant ssh`:
+
+```-bash: warning: setlocale: LC_CTYPE: cannot change locale (UTF-8): No such file or directory```
+                      
+It can be fixed by executing the command:
+
+```echo 'LC_CTYPE="en_US.UTF-8"' | sudo tee -a /etc/environment ```
+
+`exit` and reenter using `vagrant ssh`
+
 
 
 
