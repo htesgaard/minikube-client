@@ -37,9 +37,15 @@ for file sharing between the guests and host to work.
 #Usage
 When minikube is running, at the current directory being at the same location as `Vagrantfile`, run `vagrant up` and then `vagrant ssh`
 
-If kubectl can't find the cluster it is much likely because your ip-address has changed. In that case run `vagrant provision` and then `vagrant ssh`
+##`kubectl cluster-info` - If kubectl can't find the cluster
+If kubectl can't find the cluster it is much likely one or both of the following cases:
+1. Minikube isn't running. In that case run `minikube start`.
+2. because your ip-address has changed. In that case run `vagrant provision` and then `vagrant ssh`
 
-## Examples
+Or as a oneliner:
+`minikube start && vagrant provision && vagrant ssh`
+
+# Examples
 
 Congratulations! You're now ready to use your Kubernetes cluster, from a kubectl cmd running on a virtualized Linux.
 
