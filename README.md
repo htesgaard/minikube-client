@@ -19,7 +19,7 @@ localkube: Running
 ```
 2. Some OS running [Vagrant](https://www.vagrantup.com/) (Tested on Windows 8.1 and macOS Sierra)
 3. [VirtualBox](https://www.virtualbox.org/) (optional: VirtualBox Extension Pack)
-4. the following Vagrant plugins installed
+4. The following Vagrant plugins installed
 ```cmd
 C:\>vagrant plugin list
 vagrant-share (1.1.6, system)
